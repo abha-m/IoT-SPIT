@@ -35,7 +35,7 @@ def show_all():
 		print("csv file")		
 
 def accept():
-	if(csvCheck.get()==1):
+	if(typeCheck.get()==2):
 		import csv
 		global myString
 		myString=(str(e1.get("1.0",END)))
@@ -44,7 +44,7 @@ def accept():
 			for row in readCSV:
 				#print(row)
 				print(row[0])
-	if(textCheck.get()==1):
+	if(typeCheck.get()==1):
 		with open(dirname) as f:
 			polyShape = []
 			for line in f:
@@ -56,7 +56,7 @@ def accept():
 			for i in polyShape:
 				str1 = ''.join(str(i))
 				print (str1)
-	if(xlsxCheck.get()==1):
+	if(typeCheck.get()==3):
 		from xlrd import open_workbook
 		wb = open_workbook(dirname)
 		sheet = wb.sheet_by_index(0)
@@ -74,12 +74,10 @@ Label(master,text="File Format :").grid(row=1)
 label=Label(master)
 label.grid(row=6,column=1)
 
-textCheck=IntVar()		#is 1 if file is txt, 0 otherwise
-xlsxCheck = IntVar()		#is 1 if file is xlsx, 0 otherwise
-csvCheck = IntVar()		#is 1 if file is Csv, 0 otherwise
-Checkbutton(master, text="TEXT", variable=textCheck).grid(row=1,column=1, sticky=W)
-Checkbutton(master, text="XLSX", variable=xlsxCheck).grid(row=2,column=1, sticky=W)
-Checkbutton(master, text="CSV", variable=csvCheck).grid(row=3,column=1, sticky=W)
+typeCheck=IntVar()		#is 1 if file is txt, 2 if csv, 3 if xlsx,0 otherwise
+Radiobutton(master, text="TEXT", variable=typeCheck,value=1).grid(row=1,column=1)
+Radiobutton(master, text="XLSX", variable=typeCheck,value=3).grid(row=2,column=1)
+Radiobutton(master, text="CSV", variable=typeCheck,value=2).grid(row=3,column=1)
 
 e1 = Text(master,font=('Verdana',20),height=10,width=12)
 
