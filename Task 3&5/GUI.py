@@ -7,6 +7,8 @@ from tkinter import filedialog
 
 myString = ""		#The Message String goes in this variable
 dirname = ""		#The directory goes here
+myData = dict()		#Dictionary of Name:Number
+myList=[]			#List of Numbers
 
 def show_entry_fields():
    print("Message: %s\n" % (e1.get("1.0",END)))
@@ -35,6 +37,8 @@ def show_all():
 		print("csv file")		
 
 def accept():
+	global myList
+	global myData
 	if(typeCheck.get()==2):
 		import csv
 		global myString
@@ -43,25 +47,33 @@ def accept():
 			readCSV = csv.reader(csvfile, delimiter=',')
 			for row in readCSV:
 				#print(row)
-				print(row[0])
+				tempList=row[0].split(":")
+				myData[tempList[0]]=tempList[1]
+			print(myData)
 	if(typeCheck.get()==1):
 		with open(dirname) as f:
 			polyShape = []
 			for line in f:
-				line = line.split() # to deal with blank 
-				if line:            # lines (ie skip them)
-					line = str([int(i) for i in line])
-					line=line[1:len(line)-1]
+				line = line.split() # to deal with blank
+				if line:
+					print(line)
+					line=str(line)
+					line = line[2:len(line)-2]
+					#print(line)             # lines (ie skip them)
 					polyShape.append(line)
 			for i in polyShape:
-				str1 = ''.join(str(i))
-				print (str1)
+				print (i)
+				tempList=i.split(":")
+				myData[tempList[0]]=tempList[1]
+			print(myData)
 	if(typeCheck.get()==3):
 		from xlrd import open_workbook
 		wb = open_workbook(dirname)
 		sheet = wb.sheet_by_index(0)
+		numList=[]
 		for i in sheet.col_values(0):
-			print (int(i))
+			numList.append(int(i))
+		myData=dict(zip(numList,sheet.col_values(1)))
 
 master = Tk()
 master.title("Messages")
