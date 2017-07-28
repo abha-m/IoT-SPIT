@@ -83,7 +83,7 @@ def on():
 			mainList.append(myData[i])
 		print("yoo")
 		print(mainList)
-		#listbox.delete(1,last=None)
+		listbox.delete(0,END)
 		for i in myData:
 			if myData[i] in mainList:
 				listbox.insert(END,i)
