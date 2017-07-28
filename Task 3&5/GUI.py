@@ -9,7 +9,7 @@ myString = ""		#The Message String goes in this variable
 dirname = ""		#The directory goes here
 myData = dict()		#Dictionary of Name:Number
 myList=[]			#List of Numbers
-
+mainList=[]
 def show_entry_fields():
    print("Message: %s\n" % (e1.get("1.0",END)))
    
@@ -75,31 +75,56 @@ def accept():
 			numList.append(int(i))
 		myData=dict(zip(numList,sheet.col_values(1)))
 
+def on():
+	accept()
+	if(Checkall.get()==1):
+		mainList=[]
+		for i in myData:
+			mainList.append(myData[i])
+		print("yoo")
+		print(mainList)
+		#listbox.delete(1,last=None)
+		for i in myData:
+			if myData[i] in mainList:
+				listbox.insert(END,i)
+
+
 master = Tk()
+listbox = Listbox(master)
+listbox.grid(row=10)
+#top = Toplevel() 
 master.title("Messages")
 Label(master, 
 		text="Message",
 		fg="red",
 		bg="sky blue").grid(row=0)
 
-Label(master,text="File Format :").grid(row=1)
+Label(master,text="File Format :").grid(row=2)
+Label(master,text="Select Names:").grid(row=6)
+#Label(master,text=mainList).grid(row=10)
 label=Label(master)
-label.grid(row=6,column=1)
-
+label.grid(row=20,column=1)
 typeCheck=IntVar()		#is 1 if file is txt, 2 if csv, 3 if xlsx,0 otherwise
-Radiobutton(master, text="TEXT", variable=typeCheck,value=1).grid(row=1,column=1)
-Radiobutton(master, text="XLSX", variable=typeCheck,value=3).grid(row=2,column=1)
-Radiobutton(master, text="CSV", variable=typeCheck,value=2).grid(row=3,column=1)
+Checkall=IntVar()
+var=StringVar()
+Radiobutton(master, text="TEXT", variable=typeCheck,value=1).grid(row=2,column=1)
+Radiobutton(master, text="XLSX", variable=typeCheck,value=3).grid(row=3,column=1)
+Radiobutton(master, text="CSV", variable=typeCheck,value=2).grid(row=4,column=1)
+Checkbutton(master, text="Select all", variable=Checkall,onvalue=1,offvalue=0,command=on).grid(row=7,column=0,sticky=W)
 
-e1 = Text(master,font=('Verdana',20),height=10,width=12)
+e1 = Text(master,font=('Verdana',14),height=4,width=16)
+e1l = Text(master,font=('Verdana',12),height=1,width=16)
 
 e1.grid(row=0, column=1)
+e1l.grid(row=6, column=1)
+#listbox.insert(END,"sdgsdg")
+listbox.insert(END, "Selected names")
+Button(master, text='Quit', command=master.quit).grid(row=8, column=0, sticky=W, pady=4)
+Button(master, text='Post Message', command=accept).grid(row=8, column=1, sticky=W, pady=4)
+Button(master, text='Upload File', command=upload).grid(row=5, column=0, sticky=W, pady=4)
+Button(master, text='Show All', command=show_all).grid(row=5, column=1, sticky=W, pady=4)
 
-Button(master, text='Quit', command=master.quit).grid(row=5, column=0, sticky=W, pady=4)
-Button(master, text='Post Message', command=accept).grid(row=5, column=1, sticky=W, pady=4)
-Button(master, text='Upload File', command=upload).grid(row=6, column=0, sticky=W, pady=4)
-Button(master, text='Show All', command=show_all).grid(row=6, column=1, sticky=W, pady=4)
-
+#listbox.pack()
 mainloop( )
 
 
