@@ -79,15 +79,15 @@ def accept():
 def on():
 	accept()
 	if(Checkall.get()==1):
-		mainList=[]
+		global mainList
+		mainlist=[]
 		for i in myData:
 			mainList.append(myData[i])
-		print("yoo")
+		print("All Selected")
 		print(mainList)
 		listbox.delete(0,END)
 		for i in myData:
-			if myData[i] in mainList:
-				listbox.insert(END,i)
+			listbox.insert(END,i)
 
 
 master = Tk()
@@ -111,7 +111,7 @@ var=StringVar()
 Radiobutton(master, text="TEXT", variable=typeCheck,value=1).grid(row=2,column=1)
 Radiobutton(master, text="XLSX", variable=typeCheck,value=3).grid(row=3,column=1)
 Radiobutton(master, text="CSV", variable=typeCheck,value=2).grid(row=4,column=1)
-Checkbutton(master, text="Select all", variable=Checkall,onvalue=1,offvalue=0,command=on).grid(row=7,column=0,sticky=W)
+Checkbutton(master, text="Select all", variable=Checkall,onvalue=1,offvalue=0).grid(row=7,column=0,sticky=W)
 
 e1 = Text(master,font=('Verdana',14),height=4,width=16)
 e1l = Text(master,font=('Verdana',12),height=1,width=16)
@@ -121,7 +121,7 @@ e1l.grid(row=6, column=1)
 #listbox.insert(END,"sdgsdg")
 listbox.insert(END, "Selected names")
 Button(master, text='Quit', command=master.quit).grid(row=8, column=0, sticky=W, pady=4)
-Button(master, text='Post Message', command=accept).grid(row=8, column=1, sticky=W, pady=4)
+Button(master, text='Post Message', command=on).grid(row=8, column=1, sticky=W, pady=4)
 Button(master, text='Upload File', command=upload).grid(row=5, column=0, sticky=W, pady=4)
 Button(master, text='Show All', command=show_all).grid(row=5, column=1, sticky=W, pady=4)
 
