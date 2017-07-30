@@ -4,6 +4,9 @@ Download tkinter for python using sudo apt-get install python3-tk
 
 from tkinter import *
 from tkinter import filedialog
+import serial
+import time
+import sys
 
 myString = ""		#The Message String goes in this variable
 dirname = ""		#The directory goes here
@@ -96,14 +99,14 @@ def post():
 	for i in mainList:
 		phoneNumber = i
 		print("number = " + phoneNumber + ", message = " + myString)
-		time.sleep(5)
+		time.sleep(2)
 		ser.write(bytes('''AT+CMGS="''' + phoneNumber + '''"\r''','UTF-8'))
 		print(ser.read(20))
-		time.sleep(5)
+		time.sleep(2)
 		ser.write(bytes(myString + "\r",'UTF-8'))
-		time.sleep(5)
+		time.sleep(2)
 		ser.write(bytes(chr(26),'UTF-8'))
-		time.sleep(5)
+		time.sleep(2)
 	#serial end
 		
 def selectNames():
