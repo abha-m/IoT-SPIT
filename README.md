@@ -26,3 +26,8 @@
     -Creating an algorithm which helps in searching and selecting only those to whom the message must be sent, 
      in the GUI.
     -Started creating an executable file
+
+### Day 4 30/07/17
+    -Executable file of the code has been created and a broadcast message was successfully sentusing the GSM modem.
+    -Search algorithm has also been made
+        --Problem : Still the Smartphone cannot be connected as a serial device 
